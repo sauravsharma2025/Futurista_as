@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   total: 0,
-  item: "",
-  price: 0,
   productList: [],
 };
 export const cartSummarySlice = createSlice({
@@ -12,14 +10,15 @@ export const cartSummarySlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       console.log("SK@13");
-
-      state.item = action.payload.product;
-      state.price = action.payload.price;
+      const { product, price } = action.payload;
       state.productList = [
         ...state.productList,
-        { productName: state.item, productPrice: state.price },
+        {
+          productName: product,
+          productPrice: price,
+        },
       ];
-      state.total += Math.floor(Number(action.payload.price));
+      state.total += Math.floor(Number(price));
     },
   },
 });
