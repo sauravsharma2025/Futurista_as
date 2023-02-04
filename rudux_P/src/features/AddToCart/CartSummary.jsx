@@ -1,45 +1,61 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-export const CartSummary = () => {
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+import { totalAmt } from "./Total";
+import { BtnStyle, DivStyled } from "../../assets/Styles/ListStyled";
+import { addToCart, decreaseQuantity, removeItem } from "./cartSummarySlice";
 
+export const CartSummary = () => {
   const total = useSelector((state) => state.addToCart.total);
   const product = useSelector((state) => state.addToCart.productList);
-  console.log("SK@cartSummrty", product.length);
+  const dispatch = useDispatch();
+  console.log("SK@cartSummrty", total);
   return (
     <>
-      {total ? (
+      {true ? (
         <>
           <div>
-            <h3>Product Name:</h3>
+            <h5>Cart Summary</h5>
             <table>
+              <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+              </tr>
               {product.map((item) => (
                 <tr>
                   <td>{item.productName}</td>
-                  <td>:{item.productPrice}</td>
+                  <td>
+                    <DivStyled>
+                      <BtnStyle
+                        onClick={() =>
+                          dispatch(
+                            addToCart({
+                              id: item.id,
+                              price: item.price,
+                              product: item.title,
+                            })
+                          )
+                        }
+                      >
+                        +
+                      </BtnStyle>
+                      {item.quantity}
+                      <BtnStyle
+                        onClick={() => dispatch(decreaseQuantity(item.id))}
+                      >
+                        -
+                      </BtnStyle>
+                    </DivStyled>
+                  </td>
+                  <td>:{item.productPrice * item.quantity}</td>
+                  <td onClick={() => dispatch(removeItem(item.id))}>Remove</td>
                 </tr>
               ))}
 
               <tr>
-                <td>Total Amount</td>
-                <td>:{total}</td>
+                <td>Total Quantity:{totalAmt().totalQuantity}</td>
+                <td></td>
+                <td>Total Price:{totalAmt().total}</td>
               </tr>
             </table>
           </div>

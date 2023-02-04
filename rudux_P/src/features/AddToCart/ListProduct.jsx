@@ -6,10 +6,11 @@ import {
   ProductDetail,
   MainContainer,
 } from "../../assets/Styles/ListStyled";
-import { addToCart } from "./cartSummarySlice";
+import { addToCart, decreaseQuantity } from "./cartSummarySlice";
 
 export const ListProduct = ({ arr }) => {
   const dispatch = useDispatch();
+
   return (
     <>
       <MainContainer>
@@ -20,17 +21,27 @@ export const ListProduct = ({ arr }) => {
                 <ListStyled>
                   <ProductDetail>
                     {item.title}
+                    {item.quantity}
                     <img src={item.image} width="100px" height="140px" />
                   </ProductDetail>
                   <DivStyled>
                     <BtnStyle
                       onClick={() =>
                         dispatch(
-                          addToCart({ price: item.price, product: item.title })
+                          addToCart({
+                            id: item.id,
+                            price: item.price,
+                            product: item.title,
+                          })
                         )
                       }
                     >
-                      Add to Cart
+                      +
+                    </BtnStyle>
+                    <BtnStyle
+                      onClick={() => dispatch(decreaseQuantity(item.id))}
+                    >
+                      -
                     </BtnStyle>
                   </DivStyled>
                 </ListStyled>

@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { totalAmt } from "./Total";
 export const AddToCartFeature = () => {
   const [product, setProduct] = useState([]);
   const [cart, setCart] = useState(false);
@@ -18,7 +19,7 @@ export const AddToCartFeature = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 800,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -34,15 +35,13 @@ export const AddToCartFeature = () => {
     getRequest().then((data) => setProduct(data));
   }, []);
   const productArr = useSelector((state) => state.addToCart.productList);
-  const showCart = () => {
-    cart ? setCart(false) : setCart(true);
-  };
+
   return (
     <>
       <>
         <CartDiv>
           <h1>List of Products</h1>
-          <Button onClick={handleOpen}>Cart:{productArr.length}</Button>
+          <Button onClick={handleOpen}>Cart:{totalAmt().totalQuantity}</Button>
         </CartDiv>
         <Modal
           open={open}

@@ -15,6 +15,7 @@ export const BtnStyle = styled.button`
 export const DivStyled = styled.div`
   display: flex;
   justify-content: center;
+  align-items: baseline;
 `;
 export const ProductDetail = styled.div`
   display: flex;
