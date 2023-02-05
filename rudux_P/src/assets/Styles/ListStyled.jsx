@@ -32,3 +32,8 @@ export const CartDiv = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const Td = styled.td`
+  text-align: center;
+  width: 40%;
+`;

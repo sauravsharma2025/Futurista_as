@@ -54,8 +54,8 @@ export const CartSummary = () => {
 
               <tr>
                 <td>Total Quantity:{totalAmt().totalQuantity}</td>
-                <td></td>
-                <td>Total Price:{totalAmt().total}</td>
+                <td>Total Price:</td>
+                <td>{totalAmt().total}</td>
               </tr>
             </table>
           </div>
