@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CartDiv } from "../../assets/Styles/ListStyled";
 import { getRequest } from "../../services/http/http.service";
 import { CartSummary } from "./CartSummary";
@@ -13,12 +13,16 @@ import Modal from "@mui/material/Modal";
 import { totalAmt } from "./Total";
 import { RotatingLines } from "react-loader-spinner";
 import { WishList } from "../wishList/WishList";
+import { getItem } from "./cartSummarySlice";
 
 export const AddToCartFeature = () => {
-  const [product, setProduct] = useState(null);
   const [cart, setCart] = useState(false);
+  const dispatch = useDispatch();
   const wishList = useSelector((state) => state.addToWishList.wishList);
-  console.log("SK@wishList", wishList);
+  const itemArray = useSelector((state) => state.addToCart.items);
+  const isFetching = useSelector((state) => state.addToCart.isFetching);
+  console.log("SK@addtocartFeatcutre", isFetching);
+  console.log("SK@wishList", itemArray);
   const style = {
     position: "absolute",
     top: "50%",
@@ -48,7 +52,7 @@ export const AddToCartFeature = () => {
   };
 
   useEffect(() => {
-    getRequest().then((data) => setProduct(data));
+    dispatch(getItem());
   }, []);
 
   return (
@@ -73,9 +77,9 @@ export const AddToCartFeature = () => {
         </Typography> */}
         </Box>
       </Modal>
-      {product ? (
+      {!isFetching ? (
         <>
-          <ListProduct arr={product} />
+          <ListProduct arr={itemArray} />
         </>
       ) : (
         <RotatingLines

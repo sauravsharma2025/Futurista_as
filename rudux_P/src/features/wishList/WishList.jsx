@@ -11,46 +11,50 @@ export const WishList = () => {
       <>
         <div>
           <h5>WishList Summary</h5>
-          <table>
-            <tr>
-              <th>Product Name</th>
-              <th>Price</th>
-              <th>Amount</th>
-              <th>Move</th>
-            </tr>
-            {wishListData.map((item) => (
-              <>
-                <tr>
-                  <Td>{item.product}</Td>
+          {wishListData ? (
+            <table>
+              <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Amount</th>
+                <th>Move</th>
+              </tr>
+              {wishListData.map((item) => (
+                <>
+                  <tr>
+                    <Td>{item.product}</Td>
 
-                  <Td>:{item.price * item.quantity}</Td>
-                  <Td>
-                    <BtnStyle
-                      onClick={() => dispatch(removeFromWishList(item.id))}
-                    >
-                      Remove
-                    </BtnStyle>
-                  </Td>
-                  <Td>
-                    <BtnStyle
-                      onClick={() => {
-                        dispatch(
-                          addToCart({
-                            id: item.id,
-                            price: item.price,
-                            product: item.product,
-                          })
-                        );
-                        dispatch(removeFromWishList(item.id));
-                      }}
-                    >
-                      Move To Cart
-                    </BtnStyle>
-                  </Td>
-                </tr>
-              </>
-            ))}
-          </table>
+                    <Td>:{item.price * item.quantity}</Td>
+                    <Td>
+                      <BtnStyle
+                        onClick={() => dispatch(removeFromWishList(item.id))}
+                      >
+                        Remove
+                      </BtnStyle>
+                    </Td>
+                    <Td>
+                      <BtnStyle
+                        onClick={() => {
+                          dispatch(
+                            addToCart({
+                              id: item.id,
+                              price: item.price,
+                              product: item.product,
+                            })
+                          );
+                          dispatch(removeFromWishList(item.id));
+                        }}
+                      >
+                        Move To Cart
+                      </BtnStyle>
+                    </Td>
+                  </tr>
+                </>
+              ))}
+            </table>
+          ) : (
+            <h1>Nothing to show</h1>
+          )}
         </div>
       </>
     </>

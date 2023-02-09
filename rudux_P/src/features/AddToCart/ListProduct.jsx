@@ -13,8 +13,6 @@ export const ListProduct = ({ arr }) => {
     <>
       <MainContainer>
         {arr.map((item, i) => {
-          console.log("SK@list", i);
-
           return (
             <>
               <div key={i} style={{ width: "40%" }}>
