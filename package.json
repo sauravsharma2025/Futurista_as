@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "homepage": "https://sauravsharma2025.github.io/redux_practice",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build": "vite build",
