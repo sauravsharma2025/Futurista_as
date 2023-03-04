@@ -1,1 +1,1 @@
-# Futurista_as
+https://shopingcart-redux.netlify.app/
